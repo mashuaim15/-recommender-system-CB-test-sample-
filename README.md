@@ -18,21 +18,21 @@ df.shape
 df = df[['Title','Genre','Director','Actors','Plot']]
 
 
-# discarding the commas between the actors' full names and getting only the first three names
+ # discarding the commas between the actors' full names and getting only the first three names
 df['Actors'] = df['Actors'].map(lambda x: x.split(',')[:3])
 
-# putting the genres in a list of words
+ # putting the genres in a list of words
 df['Genre'] = df['Genre'].map(lambda x: x.lower().split(','))
 
 df['Director'] = df['Director'].map(lambda x: x.split(' '))
 
-# merging together first and last name for each actor and director, so it's considered as one word
-# and there is no mix up between people sharing a first name
+ # merging together first and last name for each actor and director, so it's considered as one word
+ # and there is no mix up between people sharing a first name
 for index, row in df.iterrows():
     row['Actors'] = [x.lower().replace(' ','') for x in row['Actors']]
     row['Director'] = ''.join(row['Director']).lower()
 
-# initializing the new column
+ # initializing the new column
 df['Key_words'] = ""
 
 for index, row in df.iterrows():
