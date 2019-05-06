@@ -34,7 +34,7 @@ def main():
         # and discard all puntuation characters
         r = Rake()
 
-        # extracting the words by passing the text
+       
         r.extract_keywords_from_text(content)
 
         # getting the dictionary whith key words and their scores
@@ -55,24 +55,15 @@ def main():
         for col in columns:
             words = words+ ' '.join(row[col])+''
         row ['key_words_bag'] = words
-    #df.drop(columns = [col for col in df.columns if col!= 'key_words_bag'], inplace = True)
-
-    # creating a Series for the movie titles so they are associated to an ordered numerical
-    # list I will use later to match the indexes
-
+   
     indices = pd.Series(df.index)
 
     count = CountVectorizer()
 
     count_matrix = count.fit_transform(df["key_words_bag"])
 
-
-
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
-    #df.reset_index("idn", inplace=True)
-
-    #df.set_index("key_words_bag", inplace=True)
-
+    
     urchoice = input("choose the number of the joke you like (1-100) ")
 
 
@@ -81,24 +72,24 @@ def main():
 
         urchoiced = "joke "+ urchoice
 
-        recommended_movies = []
+        recommended_jokes = []
 
 
 
-    # gettin the index of the movie that matches the title
+   
         idx = indices[indices == urchoiced].index[0]
 
         # creating a Series with the similarity scores in descending order
         score_series = pd.Series(cosine_sim[idx]).sort_values(ascending = False)
 
-        # getting the indexes of the 10 most similar movies
+        # getting the indexes of the 2 most similar 
         top_2_indexes = list(score_series.iloc[1:3].index)
 
-        # populating the list with the titles of the best 2 matching movies
+        # the best 2 
         for i in top_2_indexes:
-            recommended_movies.append(list(df.index)[i])
+            recommended_jokes.append(list(df.index)[i])
 
-        return recommended_movies
+        return recommended_jokes
 
     youwilllike = recommendations(urchoice)
 
