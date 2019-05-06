@@ -12,12 +12,12 @@ def main():
     df = pd.read_csv('file:///Users/Brian/Desktop/joke.csv',header=None)
     #df = pd.DataFrame(joke,columns=['content'])
 
-    #按格式加column title
+    #def column title
     df.columns = ["Content"]
-    #加一个column
+    # add a column
     df.insert(loc=0, column='idn', value=(np.arange(len(df))))
     df['idn'] = df['idn'].apply(lambda x: "joke " + str(x))
-    #确定dataset的格式
+    #def dataset shape
     df = df[["idn","Content"]]
     #以idn为index排序jokes
     df.set_index('idn', inplace = True)
