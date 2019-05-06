@@ -31,7 +31,7 @@ def main():
         content = row['Content']
 
         # instantiating Rake, by default is uses english stopwords from NLTK
-        # and discard all puntuation characters
+        # it will discard all puntuation characters
         r = Rake()
 
        
@@ -57,17 +57,18 @@ def main():
         row ['key_words_bag'] = words
    
     indices = pd.Series(df.index)
-
-    count = CountVectorizer()
-
-    count_matrix = count.fit_transform(df["key_words_bag"])
-
-    cosine_sim = cosine_similarity(count_matrix, count_matrix)
     
+    count = CountVectorizer()
+    
+    # fit the matrix of key_words_bag
+    count_matrix = count.fit_transform(df["key_words_bag"])
+    # compare the cosine similarity between the bags
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    # require user input
     urchoice = input("choose the number of the joke you like (1-100) ")
 
 
-
+# def recommendations func
     def recommendations(urchoiced, cosine_sim = cosine_sim):
 
         urchoiced = "joke "+ urchoice
