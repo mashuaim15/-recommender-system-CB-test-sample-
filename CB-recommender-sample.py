@@ -98,10 +98,7 @@ def main():
 
     intro = "You will like:"
     print(intro,youwilllike)
-    #jokei =""
-    #for i in youwilllike:
-    #jokei = "".join(youwilllike)
-    #jokei = "\n".join(youwilllike)
+    
     #print(jokei)
     for i in youwilllike:
         print (df.at[i,"Content"])
